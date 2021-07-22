@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Mareikes Weather</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<script
+			src="https://kit.fontawesome.com/9d3bf4f786.js"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<link rel="stylesheet" href="src/style.css" />
+	</head>
+	<body>
+		<div class="container-fluid">
+			<section>
+				<div class="inner">
+					<div class="row heading">
+						<div class="col-9">
+							<h1>Weather around the world</h1>
+						</div>
+						<div class="col-3 icon-weather">
+							<i class="fas fa-sun icon-sun"></i>
+							<i class="fas fa-cloud icon-cloud"></i>
+						</div>
+					</div>
+					<p>Hello and welcome to my weather app!</p>
+					<p>
+						This is <span>Mareike</span> and I'm not a robot. Please be welcome
+						to use this page for your daily dose of weather forecasts of your
+						favorite city or whichever place you like.
+					</p>
+					<p>Just use the text input below and be happy!</p>
+
+					<br />
+					<div class="card upper-part">
+						<div class="card-body">
+							<form class="insideCard" id="city-search-form">
+								<div class="mb-3">
+									<input
+										type="search"
+										class="form-control shadow-sm"
+										id="city-name"
+										placeholder="Type in your city..."
+										autofocus="on"
+									/>
+								</div>
+								<button
+									type="submit"
+									class="btn btn-primary button-search shadow-sm"
+									id="button-submit"
+								>
+									Search
+								</button>
+								<button
+									type="button"
+									id="button-current-location"
+									class="btn btn-primary button-current-location shadow-sm"
+								>
+									Current location
+								</button>
+							</form>
+						</div>
+					</div>
+
+					<br />
+
+					<div class="card middle-part">
+						<div class="card-body">
+							<div class="row">
+								<div class="col">
+									<h2>London</h2>
+									<div class="weekday">
+										<div id="week-day">Friday</div>
+										<div id="date">09.07.2021</div>
+										<div id="time">18:07</div>
+									</div>
+									<div class="current-weather">
+										<i class="fas fa-cloud icon-current-weather"></i>
+										<br />
+										<span class="word-current-weather" id="weather-description"
+											>Cloudy</span
+										>
+									</div>
+								</div>
+								<div class="col second">
+									<div class="current-temperature">
+										<span id="current-temperature">21</span
+										><span id="celsius-fahrenheit">°C</span>
+									</div>
+									<br />
+									<div>
+										<a href="#" id="celsius-click">°C</a> |
+										<a href="#" id="fahrenheit-click">°F</a>
+									</div>
+									<button
+										type="submit"
+										class="btn btn-light button-fahrenheit shadow-sm"
+									>
+										<small>Change to Fahrenheit</small>
+									</button>
+								</div>
+								<div class="col third">
+									<ul class="current-weather">
+										<li>
+											Sunset Time:
+											<div class="precip" id="sunset">20:00</div>
+										</li>
+										<li>
+											Humidity:
+											<div class="humidity">
+												<span id="humidity">68</span> %
+											</div>
+										</li>
+										<li>
+											Wind speed:
+											<div class="wind">
+												<span id="wind-speed">18</span> km/h
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+					<h3>Forecast:</h3>
+					<p class="forecast-text">
+						Saturday (10.07.2021) - Thursday (15.07.2021)
+					</p>
+					<div class="row">
+						<div class="col bottom-col">
+							Sat
+							<br />
+							<i class="fas fa-cloud"></i>
+							<br />
+							23°C
+						</div>
+
+						<div class="col bottom-col">
+							Sun<br />
+							<i class="fas fa-cloud"></i>
+							<br />
+							19°C
+						</div>
+						<div class="col bottom-col">
+							Mon
+							<br />
+							<i class="fas fa-cloud-showers-heavy"></i>
+							<br />
+							16°C
+						</div>
+						<div class="col bottom-col">
+							Tue<br />
+							<i class="fas fa-cloud"></i>
+							<br />
+							18°C
+						</div>
+						<div class="col bottom-col">
+							Wed
+							<br />
+							<i class="fas fa-sun"></i>
+							<br />
+							24°C
+						</div>
+						<div class="col bottom-col">
+							Thu<br />
+							<i class="fas fa-cloud"></i>
+							<br />
+							21°C
+						</div>
+					</div>
+				</div>
+				<footer>Coded by <strong>Mareike</strong> for SheCodes</footer>
+			</section>
+		</div>
+		<script src="src/script.js"></script>
+	</body>
+</html>

@@ -1,0 +1,183 @@
+body {
+	background: rgb(255, 201, 60, 0.4);
+}
+
+section {
+	margin: 10px auto;
+	max-width: 800px;
+	color: #31326f;
+	border: 2px solid #31326f;
+	border-radius: 15px;
+	background: #9ddfd3;
+}
+
+p {
+	opacity: 80%;
+	margin: 10px;
+}
+
+.container-fluid {
+	font-family: "Roboto Slab", serif;
+}
+
+.inner {
+	margin: 5px 5px 0;
+	max-width: 800px;
+	color: #31326f;
+	border: 2px solid #31326f;
+	border-radius: 15px;
+	background: white;
+	padding: 10px;
+}
+
+.icon-weather {
+	text-align: right;
+}
+
+/* HEADING */
+
+h1 {
+	margin: 10px;
+}
+
+.heading {
+	margin: 10px 0 20px;
+}
+
+.icon-sun {
+	font-size: 50px;
+	color: #ffc93c;
+}
+
+.icon-cloud {
+	font-size: 50px;
+	color: #31326f;
+}
+
+.col-9 {
+	padding: 0;
+}
+
+/* CHOOSE A CITY */
+
+.upper-part {
+	display: block;
+	margin: 0 auto;
+	max-width: 350px;
+	border: 1px solid #9ddfd3;
+	background: rgb(255, 201, 60, 0.4);
+}
+
+.insideCard {
+	text-align: center;
+}
+
+.form-control {
+	text-align: center;
+}
+
+.button-search {
+	background: #9ddfd3;
+	color: #31326f;
+	border: 1px solid #31326f;
+}
+
+.button-current-location {
+	background-color: #dbf6e9;
+	border: 1px solid #31326f;
+	color: #31326f;
+}
+
+.btn-primary:hover {
+	color: #31326f;
+	background-color: #ffc93c;
+	border-color: #31326f;
+}
+
+/* MIDDLE PART */
+
+h2 {
+	text-decoration: underline;
+}
+
+.middle-part {
+	background: #dbf6e9;
+	border: 1px solid #9ddfd3;
+}
+
+.weekday {
+	margin-top: 15px;
+	margin-left: 15px;
+}
+
+.current-weather {
+	margin-top: 15px;
+}
+
+.icon-current-weather {
+	font-size: 38px;
+	margin-left: 15px;
+}
+
+.word-current-weather {
+	margin-left: 15px;
+	font-weight: bold;
+}
+
+.current-temperature {
+	font-size: 100px;
+}
+
+.second {
+	text-align: center;
+}
+
+.button-fahrenheit {
+	background: #9ddfd3;
+	font-size: 10px;
+}
+
+.button-fahrenheit:hover {
+	color: #31326f;
+	background-color: #ffc93c;
+	border-color: #31326f;
+}
+
+.third {
+	text-align: right;
+}
+
+ul {
+	list-style: none;
+}
+
+.precip,
+.humidity,
+.wind {
+	font-weight: bold;
+	margin-bottom: 10px;
+	margin-right: 15px;
+}
+
+/* FORECAST */
+
+h3 {
+	margin: 10px;
+}
+
+.bottom-col {
+	text-align: center;
+	border: 1px solid #9ddfd3;
+	border-radius: 15px;
+	margin: 20px;
+	background: #dbf6e9;
+}
+
+/* FOOTER */
+
+footer {
+	font-size: 12px;
+	font-weight: 300;
+	text-align: center;
+	font-family: "Roboto Mono", monospace;
+}
