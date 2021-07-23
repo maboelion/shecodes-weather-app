@@ -72,11 +72,8 @@ fahrenheitClick.addEventListener("click", changeToFahrenheit);
 //-----------------------------------------------------------------------
 
 // API weather ----------------------------------------------------------
-function changeWeather(response) {
-	console.log(response);
-	let sunset = response.data.sys.sunset;
-	let date = new Date(sunset * 1000);
-	let timestr = date.toLocaleTimeString();
+function setSunset(time) {
+	let date = new Date(time * 1000);
 	let hour = date.getHours();
 	if (hour < 10) {
 		hour = `0${hour}`;
@@ -85,6 +82,29 @@ function changeWeather(response) {
 	if (min < 10) {
 		min = `0${min}`;
 	}
+	document.querySelector("#sunset").innerHTML = `${hour}:${min}`;
+}
+function setSunrise(time) {
+	let date = new Date(time * 1000);
+	let hour = date.getHours();
+	if (hour < 10) {
+		hour = `0${hour}`;
+	}
+	let min = date.getMinutes();
+	if (min < 10) {
+		min = `0${min}`;
+	}
+	document.querySelector("#sunrise").innerHTML = `${hour}:${min}`;
+}
+
+function changeWeather(response) {
+	console.log(response);
+
+	let sunset = response.data.sys.sunset;
+	let sunrise = response.data.sys.sunrise;
+	setSunset(sunset);
+	setSunrise(sunrise);
+
 	document.querySelector("h2").innerHTML = response.data.name;
 	document.querySelector("#current-temperature").innerHTML = Math.round(
 		response.data.main.temp
@@ -95,7 +115,7 @@ function changeWeather(response) {
 	document.querySelector("#wind-speed").innerHTML = Math.round(
 		response.data.wind.speed * 3.6
 	);
-	document.querySelector("#sunset").innerHTML = `${hour}:${min}`;
+
 	document
 		.querySelector("#weather-icon")
 		.setAttribute(
@@ -132,11 +152,13 @@ function changeLocation(event) {
 	navigator.geolocation.getCurrentPosition(displayCoords);
 }
 
-let citySearch = document.querySelector("#city-search-form");
-citySearch.addEventListener("submit", changeCity);
+document
+	.querySelector("#city-search-form")
+	.addEventListener("submit", changeCity);
 
-let currentLocation = document.querySelector("#button-current-location");
-currentLocation.addEventListener("click", changeLocation);
+document
+	.querySelector("#button-current-location")
+	.addEventListener("click", changeLocation);
 
 search("Bremen");
 //-----------------------------------------------------------------------
