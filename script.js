@@ -74,27 +74,9 @@ fahrenheitClick.addEventListener("click", changeToFahrenheit);
 // API weather ----------------------------------------------------------
 function changeWeather(response) {
 	console.log(response);
-
-	document.querySelector("h2").innerHTML = response.data.name;
-
-	document.querySelector("#current-temperature").innerHTML = Math.round(
-		response.data.main.temp
-	);
-
-	document.querySelector("#weather-description").innerHTML =
-		response.data.weather[0].main;
-
-	document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-
-	document.querySelector("#wind-speed").innerHTML = Math.round(
-		response.data.wind.speed * 3.6
-	);
-
 	let sunset = response.data.sys.sunset;
 	let date = new Date(sunset * 1000);
 	let timestr = date.toLocaleTimeString();
-	console.log(date, timestr);
-
 	let hour = date.getHours();
 	if (hour < 10) {
 		hour = `0${hour}`;
@@ -103,7 +85,26 @@ function changeWeather(response) {
 	if (min < 10) {
 		min = `0${min}`;
 	}
+	document.querySelector("h2").innerHTML = response.data.name;
+	document.querySelector("#current-temperature").innerHTML = Math.round(
+		response.data.main.temp
+	);
+	document.querySelector("#weather-description").innerHTML =
+		response.data.weather[0].description;
+	document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+	document.querySelector("#wind-speed").innerHTML = Math.round(
+		response.data.wind.speed * 3.6
+	);
 	document.querySelector("#sunset").innerHTML = `${hour}:${min}`;
+	document
+		.querySelector("#weather-icon")
+		.setAttribute(
+			"src",
+			`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+		);
+	document
+		.querySelector("#weather-icon")
+		.setAttribute("alt", response.data.weather[0].main);
 }
 
 function search(city) {
