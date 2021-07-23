@@ -1,5 +1,3 @@
-// SET Date / Time  ------------------------------------------------------
-
 function setCurrentTime(event) {
 	let days = [
 		"Sunday",
@@ -44,31 +42,33 @@ function setCurrentTime(event) {
 	let selectCurrentTime = document.querySelector("#time");
 	selectCurrentTime.innerHTML = `${hour}:${min}`;
 }
-let today = new Date();
-setCurrentTime(today);
-//-----------------------------------------------------------------------
 
 // CHANGE Celsius - Fahrenheit
 function changeToCelsius(event) {
-	event.preventDefault();
-	let currentTemp = document.querySelector("#current-temperature");
-	let celsiusFahrenheit = document.querySelector("#celsius-fahrenheit");
-	currentTemp.innerHTML = "19";
-	celsiusFahrenheit.innerHTML = "°C";
+	document.querySelector("#current-temperature").innerHTML =
+		Math.round(celsiusTemp);
+	document.querySelector("#celsius-fahrenheit").innerHTML = "°C";
+	document.querySelector("#button-description").innerHTML =
+		"Change to Fahrenheit";
 }
 function changeToFahrenheit(event) {
-	event.preventDefault();
-	let currentTemp = document.querySelector("#current-temperature");
-	let temp = currentTemp.innerHTML;
-	temp = Number(temp);
-	let celsiusFahrenheit = document.querySelector("#celsius-fahrenheit");
-	currentTemp.innerHTML = Math.round(temp * 1.8 + 32);
-	celsiusFahrenheit.innerHTML = "°F";
+	document.querySelector("#current-temperature").innerHTML = Math.round(
+		celsiusTemp * 1.8 + 32
+	);
+	document.querySelector("#celsius-fahrenheit").innerHTML = "°F";
+	document.querySelector("#button-description").innerHTML = "Change to Celsius";
 }
-let celsiusClick = document.querySelector("#celsius-click");
-celsiusClick.addEventListener("click", changeToCelsius);
-let fahrenheitClick = document.querySelector("#fahrenheit-click");
-fahrenheitClick.addEventListener("click", changeToFahrenheit);
+
+function changeTemperature(event) {
+	event.preventDefault();
+
+	if (buttonWords.innerHTML === "Change to Fahrenheit") {
+		changeToFahrenheit();
+	} else {
+		changeToCelsius();
+	}
+}
+
 //-----------------------------------------------------------------------
 
 // API weather ----------------------------------------------------------
@@ -100,15 +100,15 @@ function setSunrise(time) {
 function changeWeather(response) {
 	console.log(response);
 
+	celsiusTemp = response.data.main.temp;
 	let sunset = response.data.sys.sunset;
 	let sunrise = response.data.sys.sunrise;
 	setSunset(sunset);
 	setSunrise(sunrise);
 
 	document.querySelector("h2").innerHTML = response.data.name;
-	document.querySelector("#current-temperature").innerHTML = Math.round(
-		response.data.main.temp
-	);
+	document.querySelector("#current-temperature").innerHTML =
+		Math.round(celsiusTemp);
 	document.querySelector("#weather-description").innerHTML =
 		response.data.weather[0].description;
 	document.querySelector("#humidity").innerHTML = response.data.main.humidity;
@@ -152,13 +152,19 @@ function changeLocation(event) {
 	navigator.geolocation.getCurrentPosition(displayCoords);
 }
 
+let today = new Date();
+let celsiusTemp = null;
+let buttonWords = document.querySelector("#button-description");
+
+document
+	.querySelector("#temperature-button")
+	.addEventListener("click", changeTemperature);
 document
 	.querySelector("#city-search-form")
 	.addEventListener("submit", changeCity);
-
 document
 	.querySelector("#button-current-location")
 	.addEventListener("click", changeLocation);
 
+setCurrentTime(today);
 search("Bremen");
-//-----------------------------------------------------------------------
