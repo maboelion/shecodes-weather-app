@@ -110,18 +110,26 @@ h2 {
 	margin-left: 15px;
 }
 
-.current-weather {
-	margin-top: 15px;
+.icon-display {
+	margin-top: 10px;
+	background: white;
+	max-width: fit-content;
+	border: 1px solid white;
+	border-radius: 15px;
 }
 
-.icon-current-weather {
-	font-size: 38px;
-	margin-left: 15px;
+#weather-icon {
+	display: block;
+	margin: 0 auto;
 }
 
 .word-current-weather {
+	padding-right: 15px;
+	position: relative;
+	top: -30px;
 	margin-left: 15px;
 	font-weight: bold;
+	text-transform: capitalize;
 }
 
 .current-temperature {
