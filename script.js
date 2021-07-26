@@ -122,7 +122,6 @@ function setForecastWeek(forecast) {
 
 function changeForecast(response) {
 	let weatherData = response.data.daily;
-	console.log(response.data);
 	let forecastString = `<div class="row">`;
 	let forecastWeek = setForecastWeek(weatherData);
 
@@ -158,8 +157,6 @@ function getForecast(coordinates) {
 }
 
 function changeWeather(response) {
-	console.log(response);
-
 	celsiusTemp = response.data.main.temp;
 	let sunset = response.data.sys.sunset;
 	let sunrise = response.data.sys.sunrise;
