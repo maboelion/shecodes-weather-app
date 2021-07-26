@@ -40,29 +40,14 @@ function setCurrentTime(event) {
 	document.querySelector("#time").innerHTML = `${hour}:${min}`;
 }
 
-function changeToCelsius(event) {
-	document.querySelector("#current-temperature").innerHTML =
-		Math.round(celsiusTemp);
-	document.querySelector("#celsius-fahrenheit").innerHTML = "°C";
-	document.querySelector("#button-description").innerHTML =
-		"Change to Fahrenheit";
-}
-function changeToFahrenheit(event) {
-	document.querySelector("#current-temperature").innerHTML = Math.round(
-		celsiusTemp * 1.8 + 32
-	);
-	document.querySelector("#celsius-fahrenheit").innerHTML = "°F";
-	document.querySelector("#button-description").innerHTML = "Change to Celsius";
-}
-
-function changeTemperature(event) {
+function alertFahrenheit(event) {
 	event.preventDefault();
-
-	if (buttonWords.innerHTML === "Change to Fahrenheit") {
-		changeToFahrenheit();
-	} else {
-		changeToCelsius();
-	}
+	let fahrenheitTemp = Math.round(celsiusTemp * 1.8 + 32);
+	alert(
+		`Hello there! The current temperatue in Fahrenheit is ${fahrenheitTemp}°. 
+Please be aware that I am based in Europe where we use the only legit system: 
+The metric system. 😁`
+	);
 }
 
 function setSunset(time) {
@@ -236,7 +221,7 @@ let buttonWords = document.querySelector("#button-description");
 
 document
 	.querySelector("#temperature-button")
-	.addEventListener("click", changeTemperature);
+	.addEventListener("click", alertFahrenheit);
 document
 	.querySelector("#city-search-form")
 	.addEventListener("submit", changeCity);
