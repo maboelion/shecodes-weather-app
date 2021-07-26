@@ -1,4 +1,4 @@
-function setCurrentTime(event) {
+function setCurrentTime(time) {
 	let days = [
 		"Sunday",
 		"Monday",
@@ -22,22 +22,23 @@ function setCurrentTime(event) {
 		"11",
 		"12",
 	];
-	let day = days[today.getDay()];
-	let month = months[today.getMonth()];
-	let date = today.getDate();
-	let year = today.getFullYear();
-	let hour = today.getHours();
+	let now = new Date(time * 1000 + timezoneValue * 1000 - 7200 * 1000);
+	let day = days[now.getDay()];
+	let month = months[now.getMonth()];
+	let date = now.getDate();
+	let year = now.getFullYear();
+	let hour = now.getHours();
 	if (hour < 10) {
 		hour = `0${hour}`;
 	}
-	let min = today.getMinutes();
+	let min = now.getMinutes();
 	if (min < 10) {
 		min = `0${min}`;
 	}
 
 	document.querySelector("#week-day").innerHTML = `${day}`;
 	document.querySelector("#date").innerHTML = `${date}.${month}.${year}`;
-	document.querySelector("#time").innerHTML = `${hour}:${min}`;
+	document.querySelector("#time").innerHTML = `ca. ${hour}:${min}`;
 }
 
 function alertFahrenheit(event) {
@@ -51,7 +52,7 @@ The metric system. 😁`
 }
 
 function setSunset(time) {
-	let date = new Date(time * 1000);
+	let date = new Date(time * 1000 + timezoneValue * 1000 - 7200 * 1000);
 	let hour = date.getHours();
 	if (hour < 10) {
 		hour = `0${hour}`;
@@ -63,7 +64,7 @@ function setSunset(time) {
 	document.querySelector("#sunset").innerHTML = `${hour}:${min}`;
 }
 function setSunrise(time) {
-	let date = new Date(time * 1000);
+	let date = new Date(time * 1000 + timezoneValue * 1000 - 7200 * 1000);
 	let hour = date.getHours();
 	if (hour < 10) {
 		hour = `0${hour}`;
@@ -158,10 +159,13 @@ function getForecast(coordinates) {
 
 function changeWeather(response) {
 	celsiusTemp = response.data.main.temp;
+	timezoneValue = response.data.timezone;
 	let sunset = response.data.sys.sunset;
 	let sunrise = response.data.sys.sunrise;
+	let today = response.data.dt;
 	setSunset(sunset);
 	setSunrise(sunrise);
+	setCurrentTime(today);
 
 	document.querySelector("h2").innerHTML = response.data.name;
 	document.querySelector("#current-temperature").innerHTML =
@@ -193,7 +197,6 @@ function search(city) {
 	let apiKey = "3b478c1272c318ae84892336587ae67c";
 	let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 	axios.get(apiUrl).then(changeWeather);
-	setCurrentTime(today);
 }
 
 function changeCity(event) {
@@ -215,8 +218,8 @@ function changeLocation(event) {
 	navigator.geolocation.getCurrentPosition(displayCoords);
 }
 
-let today = new Date();
 let celsiusTemp = null;
+let timezoneValue = null;
 let buttonWords = document.querySelector("#button-description");
 
 document
