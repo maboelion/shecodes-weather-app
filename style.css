@@ -133,8 +133,16 @@ h2 {
 }
 
 .current-temperature {
-	margin-top: 35px;
+	margin-top: 30px;
 	font-size: 100px;
+}
+
+.min-max-temp {
+	margin-bottom: 45px;
+}
+
+.min-max-temp span {
+	font-weight: bold;
 }
 
 .second {

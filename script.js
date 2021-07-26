@@ -175,6 +175,9 @@ function changeWeather(response) {
 	document.querySelector("#wind-speed").innerHTML = Math.round(
 		response.data.wind.speed * 3.6
 	);
+	document.querySelector("#min-max-temp").innerHTML = `${Math.round(
+		response.data.main.temp_min
+	)}°C | <span>${Math.round(response.data.main.temp_max)}°C</span>`;
 
 	document
 		.querySelector("#weather-icon")
