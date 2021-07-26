@@ -35,15 +35,11 @@ function setCurrentTime(event) {
 		min = `0${min}`;
 	}
 
-	let selectWeekDay = document.querySelector("#week-day");
-	selectWeekDay.innerHTML = `${day}`;
-	let selectCurrentDate = document.querySelector("#date");
-	selectCurrentDate.innerHTML = `${date}.${month}.${year}`;
-	let selectCurrentTime = document.querySelector("#time");
-	selectCurrentTime.innerHTML = `${hour}:${min}`;
+	document.querySelector("#week-day").innerHTML = `${day}`;
+	document.querySelector("#date").innerHTML = `${date}.${month}.${year}`;
+	document.querySelector("#time").innerHTML = `${hour}:${min}`;
 }
 
-// CHANGE Celsius - Fahrenheit
 function changeToCelsius(event) {
 	document.querySelector("#current-temperature").innerHTML =
 		Math.round(celsiusTemp);
@@ -69,9 +65,6 @@ function changeTemperature(event) {
 	}
 }
 
-//-----------------------------------------------------------------------
-
-// API weather ----------------------------------------------------------
 function setSunset(time) {
 	let date = new Date(time * 1000);
 	let hour = date.getHours();
@@ -95,6 +88,86 @@ function setSunrise(time) {
 		min = `0${min}`;
 	}
 	document.querySelector("#sunrise").innerHTML = `${hour}:${min}`;
+}
+
+function setForecastDay(time) {
+	let date = new Date(time * 1000);
+	let day = date.getDay();
+	let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	return days[day];
+}
+
+function setForecastWeek(forecast) {
+	let dateStart = new Date(forecast[1].dt * 1000);
+	let dateEnd = new Date(forecast[4].dt * 1000);
+	let dayStart = dateStart.getDay();
+	let dayEnd = dateEnd.getDay();
+	let days = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
+	let months = [
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+	];
+	let monthStart = months[dateStart.getMonth()];
+	let monthEnd = months[dateEnd.getMonth()];
+	let numberStart = dateStart.getDate();
+	let numberEnd = dateEnd.getDate();
+	let yearStart = dateStart.getFullYear();
+	let yearEnd = dateEnd.getFullYear();
+
+	return `${days[dayStart]} (${numberStart}.${monthStart}.${yearStart}) - ${days[dayEnd]} (${numberEnd}.${monthEnd}.${yearEnd})`;
+}
+
+function changeForecast(response) {
+	let weatherData = response.data.daily;
+	console.log(response.data);
+	let forecastString = `<div class="row">`;
+	let forecastWeek = setForecastWeek(weatherData);
+
+	weatherData.forEach(function (forecastDay, index) {
+		if (index > 0 && index < 5) {
+			forecastString =
+				forecastString +
+				`
+						<div class="col-2 bottom-col">
+							${setForecastDay(forecastDay.dt)}
+							<br />
+							<img src="http://openweathermap.org/img/wn/${
+								forecastDay.weather[0].icon
+							}@2x.png"
+							alt="${forecastDay.weather[0].main}" class="forecast-icon" />
+							<br />
+							${Math.round(forecastDay.temp.min)}°C | ${Math.round(forecastDay.temp.max)}°C
+						</div>`;
+		}
+	});
+	forecastString = forecastString + `</div>`;
+
+	document.querySelector("#weather-forecast").innerHTML = forecastString;
+	document.querySelector("#forecast-text").innerHTML = forecastWeek;
+}
+
+function getForecast(coordinates) {
+	let apiKey = "3b478c1272c318ae84892336587ae67c";
+	let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=alerts&units=metric&appid=${apiKey}`;
+	axios.get(apiUrl).then(changeForecast);
 }
 
 function changeWeather(response) {
@@ -125,12 +198,15 @@ function changeWeather(response) {
 	document
 		.querySelector("#weather-icon")
 		.setAttribute("alt", response.data.weather[0].main);
+
+	getForecast(response.data.coord);
 }
 
 function search(city) {
 	let apiKey = "3b478c1272c318ae84892336587ae67c";
 	let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 	axios.get(apiUrl).then(changeWeather);
+	setCurrentTime(today);
 }
 
 function changeCity(event) {
@@ -166,5 +242,4 @@ document
 	.querySelector("#button-current-location")
 	.addEventListener("click", changeLocation);
 
-setCurrentTime(today);
 search("Bremen");
