@@ -35,6 +35,9 @@ function setCurrentTime(time) {
 	if (min < 10) {
 		min = `0${min}`;
 	}
+	if (day < 10) {
+		day = `0${day}`;
+	}
 
 	document.querySelector("#week-day").innerHTML = `${day}`;
 	document.querySelector("#date").innerHTML = `${date}.${month}.${year}`;
@@ -117,6 +120,12 @@ function setForecastWeek(forecast) {
 	let numberEnd = dateEnd.getDate();
 	let yearStart = dateStart.getFullYear();
 	let yearEnd = dateEnd.getFullYear();
+	if (numberStart < 10) {
+		numberStart = `0${numberStart}`;
+	}
+	if (numberEnd < 10) {
+		numberEnd = `0${numberEnd}`;
+	}
 
 	return `${days[dayStart]} (${numberStart}.${monthStart}.${yearStart}) - ${days[dayEnd]} (${numberEnd}.${monthEnd}.${yearEnd})`;
 }
@@ -220,7 +229,6 @@ function changeLocation(event) {
 
 let celsiusTemp = null;
 let timezoneValue = null;
-let buttonWords = document.querySelector("#button-description");
 
 document
 	.querySelector("#temperature-button")
