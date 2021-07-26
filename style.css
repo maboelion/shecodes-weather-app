@@ -178,12 +178,33 @@ h3 {
 	margin: 10px;
 }
 
+.forecast {
+	margin: 20px 0;
+}
+
 .bottom-col {
 	text-align: center;
-	border: 1px solid #9ddfd3;
+	border: 5px solid #9ddfd3;
 	border-radius: 15px;
-	margin: 20px;
-	background: #dbf6e9;
+	margin-left: 20px;
+	background: white;
+	padding: 0;
+}
+
+.forecast-day {
+	font-weight: bold;
+}
+
+.forecast-icon {
+	max-width: 55px;
+}
+
+.forecast-temps {
+	font-size: small;
+}
+
+.forecast-temps span {
+	font-weight: bold;
 }
 
 /* FOOTER */

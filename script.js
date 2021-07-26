@@ -99,7 +99,7 @@ function setForecastDay(time) {
 
 function setForecastWeek(forecast) {
 	let dateStart = new Date(forecast[1].dt * 1000);
-	let dateEnd = new Date(forecast[4].dt * 1000);
+	let dateEnd = new Date(forecast[5].dt * 1000);
 	let dayStart = dateStart.getDay();
 	let dayEnd = dateEnd.getDay();
 	let days = [
@@ -142,19 +142,21 @@ function changeForecast(response) {
 	let forecastWeek = setForecastWeek(weatherData);
 
 	weatherData.forEach(function (forecastDay, index) {
-		if (index > 0 && index < 5) {
+		if (index > 0 && index < 6) {
 			forecastString =
 				forecastString +
 				`
 						<div class="col-2 bottom-col">
-							${setForecastDay(forecastDay.dt)}
-							<br />
+							<div class="forecast-day">${setForecastDay(forecastDay.dt)}</div>
 							<img src="http://openweathermap.org/img/wn/${
 								forecastDay.weather[0].icon
 							}@2x.png"
 							alt="${forecastDay.weather[0].main}" class="forecast-icon" />
-							<br />
-							${Math.round(forecastDay.temp.min)}°C | ${Math.round(forecastDay.temp.max)}°C
+							<div class="forecast-temps">
+							${Math.round(forecastDay.temp.min)}°C | <span>${Math.round(
+					forecastDay.temp.max
+				)}°C</span>
+							</div>
 						</div>`;
 		}
 	});
