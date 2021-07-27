@@ -41,7 +41,7 @@ function setCurrentTime(time) {
 
 	document.querySelector("#week-day").innerHTML = `${day}`;
 	document.querySelector("#date").innerHTML = `${date}.${month}.${year}`;
-	document.querySelector("#time").innerHTML = `ca. ${hour}:${min}`;
+	document.querySelector("#time").innerHTML = `${hour}:${min}`;
 }
 
 function alertFahrenheit(event) {
@@ -131,9 +131,12 @@ function setForecastWeek(forecast) {
 }
 
 function changeForecast(response) {
+	let today = response.data.current.dt;
 	let weatherData = response.data.daily;
 	let forecastString = `<div class="row">`;
 	let forecastWeek = setForecastWeek(weatherData);
+
+	setCurrentTime(today);
 
 	weatherData.forEach(function (forecastDay, index) {
 		if (index > 0 && index < 6) {
@@ -171,10 +174,9 @@ function changeWeather(response) {
 	timezoneValue = response.data.timezone;
 	let sunset = response.data.sys.sunset;
 	let sunrise = response.data.sys.sunrise;
-	let today = response.data.dt;
+
 	setSunset(sunset);
 	setSunrise(sunrise);
-	setCurrentTime(today);
 
 	document.querySelector("h2").innerHTML = response.data.name;
 	document.querySelector("#current-temperature").innerHTML =
